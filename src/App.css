@@ -8,6 +8,10 @@
   height: 100vh;
 }
 
+li {
+  list-style-type: none;
+}
+
 .sidebar {
   width: 300px;
   height: 100vh;
@@ -24,8 +28,16 @@
   cursor: pointer;
 }
 
+h#shopName {
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
+}
+
+p#address {
+  font-size: small;
 }
 
 .App-logo {

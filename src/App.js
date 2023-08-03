@@ -41,14 +41,16 @@ const MapController = ({selectedShop}) => {
 };
 
 function MyMap() {
-  const [selectedShop, setSelectedShop] = useState(null);
+  const [selectedShop, setSelectedShop] = useState(null); // useState hook
   
   return (
     <div style={{ display: "flex" }}>
-      <div className="sidebar">
+      <div className="sidebar"> 
+      { /*  how we're making the menu */ }
         {coffeeData.info.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
             <p>{shop.shopName}</p>
+            <p id="address">{shop.address}</p>
           </div>
         ))}
       </div>
@@ -62,13 +64,29 @@ function MyMap() {
               {selectedShop === shop && (
                 <Tooltip permanent>
                   <ul>
-                    <h>{shop.shopName}</h>
-                    <li>Drip Price: {shop.dripPrice}</li>
-                    <li>Mocha Price: {shop.mochaPrice}</li>
-                    <li>Latte Price: {shop.lattePrice}</li>
-                    <li>Espresso Price: {shop.espressoPrice}</li>
-                    <li>American Price: {shop.americanPrice}</li>
-                    <li>Cappuccino Price: {shop.capPrice}</li>
+                    <h id="shopName">{shop.shopName}</h>
+                    <li>{shop.region}</li>
+                    {(shop.dripPrice !== null) ? (
+                      <li>Drip Price: ${shop.dripPrice.toFixed(2)}</li>
+                    ) : <li>Drip Price: N/A</li>}
+                    {(shop.mochaPrice !== null) ? (
+                      <li>Mocha Price: ${shop.mochaPrice.toFixed(2)}</li>
+                    ) : <li>Mocha Price: N/A</li>}
+                    {(shop.lattePrice !== null) ? (
+                      <li>Latte Price: ${shop.lattePrice.toFixed(2)}</li>
+                    ) : <li>Latte Price: N/A</li>}
+                    {(shop.maccPrice !== null) ? (
+                      <li>Macchiato Price: ${shop.maccPrice.toFixed(2)}</li>
+                    ) : <li>Macchiato Price: N/A</li>}
+                    {(shop.espressoPrice !== null) ? (
+                      <li>Espresso Price: ${shop.espressoPrice.toFixed(2)}</li>
+                    ) : <li>Espresso Price: N/A</li>}
+                    {(shop.americanPrice !== null) ? (
+                      <li>Americano Price: ${shop.americanPrice.toFixed(2)}</li>
+                    ) : <li>Americano Price: N/A</li>}
+                    {(shop.capPrice !== null) ? (
+                      <li>Cappuccino Price: ${shop.capPrice.toFixed(2)}</li>
+                    ) : <li>Cappuccino Price: N/A</li>}
                   </ul>
                 </Tooltip>
               )}
@@ -76,6 +94,7 @@ function MyMap() {
           ))}
         </MapContainer>
       </div>
+      
     </div>
   );
 }
@@ -96,6 +115,7 @@ export const coffeeData = {
       espressoPrice: 2.95,
       americanPrice: 3.25,
       capPrice: 4.5,
+      averagePrice: 3.59,
       center: [37.8686181, -122.2611693]
     },
     {
@@ -110,6 +130,7 @@ export const coffeeData = {
       espressoPrice: 3.25,
       americanPrice: 3.75,
       capPrice: 4.25,
+      averagePrice: 4.04,
       center: [37.8751784, -122.2710362]
     },
     {
@@ -124,6 +145,7 @@ export const coffeeData = {
       espressoPrice: 3.6,
       americanPrice: 3.85,
       capPrice: 4.45,
+      averagePrice: 4.09,
       center: [37.8737312, -122.2713947]
     },
     {
@@ -138,6 +160,7 @@ export const coffeeData = {
       espressoPrice: 3.5,
       americanPrice: 4.0,
       capPrice: 4.5,
+      averagePrice: 4.5,
       center: [37.870716, -122.2780024]
     },
     {
@@ -152,6 +175,7 @@ export const coffeeData = {
       espressoPrice: 3.25,
       americanPrice: null,
       capPrice: 3.95,
+      averagePrice: 3.78,
       center: [37.8734824, -122.2689829]
     },
     {
@@ -166,6 +190,7 @@ export const coffeeData = {
       espressoPrice: 3.5,
       americanPrice: 4.5,
       capPrice: 4.75,
+      averagePrice: 4.46,
       center: [37.8757876, -122.2631173]
     },
     {
@@ -180,6 +205,7 @@ export const coffeeData = {
       espressoPrice: 4.0,
       americanPrice: null,
       capPrice: 5.75,
+      averagePrice: 5.55,
       center: [37.8720931, -122.2702082]
     },
     {
@@ -194,6 +220,7 @@ export const coffeeData = {
       espressoPrice: 3.75,
       americanPrice: 3.75,
       capPrice: 4.5,
+      averagePrice: 4.1,
       center: [37.8699343, -122.2750436]
     },
     {
@@ -208,6 +235,7 @@ export const coffeeData = {
       espressoPrice: 3.5,
       americanPrice: 3.75,
       capPrice: 4.25,
+      averagePrice: 4.0,
       center: [37.8698659, -122.2709325]
     },
     {
@@ -222,6 +250,7 @@ export const coffeeData = {
       espressoPrice: 4.0,
       americanPrice: 4.25,
       capPrice: 4.75,
+      averagePrice: 4.96,
       center: [37.8698547, -122.2690049]
     },
     {
@@ -236,6 +265,7 @@ export const coffeeData = {
       espressoPrice: 2.75,
       americanPrice: 3.0,
       capPrice: 3.75,
+      averagePrice: 3.54,
       center: [37.8755258, -122.2629958]
     },
     {
@@ -250,6 +280,7 @@ export const coffeeData = {
       espressoPrice: 3.4,
       americanPrice: null,
       capPrice: 4.75,
+      averagePrice: 4.02,
       center: [37.8752072, -122.2628749]
     },
     {
@@ -264,7 +295,23 @@ export const coffeeData = {
       espressoPrice: 2.25,
       americanPrice: 3.0,
       capPrice: 3.0,
+      averagePrice: 3.04,
       center: [37.8756668, -122.2618554]
+    },
+    {
+      shopName: "Yali's Qualcomm Cafe",
+      stars: 4.3,
+      address: "2594 Hearst Ave",
+      region: "Northside",
+      dripPrice: 2.85,
+      mochaPrice: 4.5,
+      lattePrice: 4.0,
+      maccPrice: 3.5,
+      espressoPrice: 2.5,
+      americanPrice: 3.0,
+      capPrice: 3.95,
+      averagePrice: 3.47,
+      center: [37.8747965, -122.2631813]
     },
     {
       shopName: "Cabanas Cafe",
@@ -278,6 +325,7 @@ export const coffeeData = {
       espressoPrice: 3.5,
       americanPrice: 3.5,
       capPrice: 3.99,
+      averagePrice: 3.87,
       center: [37.8752072, -122.2628749]
     },
     {
@@ -292,6 +340,7 @@ export const coffeeData = {
       espressoPrice: 3.5,
       americanPrice: 4.5,
       capPrice: 4.75,
+      averagePrice: 4.46,
       center: [37.8757833, -122.2654133]
     },
     {
@@ -306,6 +355,7 @@ export const coffeeData = {
       espressoPrice: 3.75,
       americanPrice: 4.0,
       capPrice: 5.0,
+      averagePrice: 4.5,
       center: [37.8666475, -122.2625535]
     },
     {
@@ -320,6 +370,7 @@ export const coffeeData = {
       espressoPrice: 3.0,
       americanPrice: 3.5,
       capPrice: 4.0,
+      averagePrice: 3.7,
       center: [37.8653383, -122.2608961]
     },
     {
@@ -334,6 +385,7 @@ export const coffeeData = {
       espressoPrice: 4.0,
       americanPrice: 4.0,
       capPrice: 5.0,
+      averagePrice: 4.43,
       center: [37.872789, -122.2583994]
     },
     {
@@ -348,6 +400,7 @@ export const coffeeData = {
       espressoPrice: null,
       americanPrice: 2.85,
       capPrice: null,
+      averagePrice: 2.5,
       center: [37.872328, -122.2567669]
     },
     {
@@ -362,6 +415,7 @@ export const coffeeData = {
       espressoPrice: 3.0,
       americanPrice: 3.0,
       capPrice: 3.5,
+      averagePrice: 3.57,
       center: [37.8696601, -122.2540053]
     },
     {
@@ -376,8 +430,39 @@ export const coffeeData = {
       espressoPrice: 2.95,
       americanPrice: 3.0,
       capPrice: 3.95,
+      averagePrice: 3.65,
       center: [37.8776196, -122.2733259]
     }
   ]
 };
 
+export const averageData = [
+  {
+    coffeeName: "drip",
+    averagePrice: 3.12
+  },
+  {
+    coffeeName: "mocha",
+    averagePrice: 5.24
+  },
+  {
+    coffeeName: "latte",
+    averagePrice: 4.73
+  },
+  {
+    coffeeName: "macchiato",
+    averagePrice: 4.0
+  },
+  {
+    coffeeName: "espresso",
+    averagePrice: 3.33
+  },
+  {
+    coffeeName: "americano",
+    averagePrice: 3.6
+  },
+  {
+    coffeeName: "cappuccino",
+    averagePrice: 4.34
+  }
+];
