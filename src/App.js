@@ -4,12 +4,52 @@ import React, { Component } from "react";
 import { FC, useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap, CircleMarker, Popup, Tooltip } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons'
+import { faStarHalf as solidStarHalf } from '@fortawesome/free-solid-svg-icons'
+import L from 'leaflet'
 
-function UpdateMap() {
-  const map = useMap();
-  map.invalidateSize();
-  return null;
+function StarRating({rating}) {
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars.push(<FontAwesomeIcon icon={solidStar} key={i} />);
+    } else if (rating >= i - 0.5) {
+      stars.push(<div className="star-icon" key={i}>
+                   <FontAwesomeIcon icon={regularStar}/>
+                   <FontAwesomeIcon icon={solidStarHalf}className="half-star" />
+                 </div>);
+    } else {
+      stars.push(<FontAwesomeIcon icon={regularStar} key={i}/>);
+    }
+  }
+
+  return (
+    <div>{stars}</div>
+  );
 }
+
+function GradientBar() {
+  return (
+    <div style={{ height: '20px', background: 'linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.9))', margin: '10px 0' }}></div>
+  );
+}
+
+function Legend() {
+  return (
+    <div style={{ padding: '10px', backgroundColor: 'white', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+      <p style={{ margin: 0 }}>Price Level:</p>
+      <GradientBar />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p style={{ margin: 0 }}>Less expensive</p>
+        <p style={{ margin: 0 }}>More expensive</p>
+      </div>
+    </div>
+  );
+}
+
 
 const MapController = ({selectedShop}) => {
   const map = useMap();
@@ -42,13 +82,16 @@ const MapController = ({selectedShop}) => {
 
 function MyMap() {
   const [selectedShop, setSelectedShop] = useState(null);
-  
+
   return (
     <div style={{ display: "flex" }}>
       <div className="sidebar">
+        <Legend />
         {coffeeData.info.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
             <p>{shop.shopName}</p>
+            <StarRating rating={shop.stars} />
+            <p className="coffee-address">{shop.address}</p>
           </div>
         ))}
       </div>
@@ -56,31 +99,56 @@ function MyMap() {
         <MapContainer className="map" center={[37.8686181, -122.2611693]} zoom={15}>
           <MapController selectedShop={selectedShop} />
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png" />
-          {coffeeData.info.map((shop, index) => (
-            <CircleMarker key={index} center={[shop.center[0], shop.center[1]]} eventHandlers={{ click: () => { setSelectedShop(shop) } }}>
-              <Tooltip>{shop.shopName}</Tooltip>
-              {selectedShop === shop && (
-                <Tooltip permanent>
-                  <ul>
-                    <h>{shop.shopName}</h>
-                    <li>Drip Price: {shop.dripPrice}</li>
-                    <li>Mocha Price: {shop.mochaPrice}</li>
-                    <li>Latte Price: {shop.lattePrice}</li>
-                    <li>Espresso Price: {shop.espressoPrice}</li>
-                    <li>American Price: {shop.americanPrice}</li>
-                    <li>Cappuccino Price: {shop.capPrice}</li>
-                  </ul>
-                </Tooltip>
-              )}
-            </CircleMarker>
-          ))}
+          {coffeeData.info.map((shop, index) => {
+            const minOpacity = 0.15;
+            const maxOpacity = 0.9;
+            const t = (shop.avgPrice - minPrice) / (maxPrice - minPrice);
+            const opacity = minOpacity + t * (maxOpacity - minOpacity);
+
+            return (
+              <CircleMarker key={index} center={[shop.center[0], shop.center[1]]} eventHandlers={{ click: () => { setSelectedShop(shop) } }}
+              pathOptions={{ 
+                color: 'black', 
+                fillColor: 'black', 
+                fillOpacity: opacity 
+              }}
+              >
+                <Tooltip>{shop.shopName}</Tooltip>
+                {selectedShop === shop && (
+                  <Tooltip permanent>
+                    <ul>
+                      <h>{shop.shopName}</h>
+                      <li>Drip Price: {shop.dripPrice}</li>
+                      <li>Mocha Price: {shop.mochaPrice}</li>
+                      <li>Latte Price: {shop.lattePrice}</li>
+                      <li>Espresso Price: {shop.espressoPrice}</li>
+                      <li>American Price: {shop.americanPrice}</li>
+                      <li>Cappuccino Price: {shop.capPrice}</li>
+                    </ul>
+                  </Tooltip>
+                )}
+              </CircleMarker>
+            );
+          })}
         </MapContainer>
       </div>
     </div>
   );
 }
 
+
 export default MyMap;
+
+function calculateAveragePrice(shop) {
+  const prices = [shop.dripPrice, shop.mochaPrice, shop.lattePrice, shop.maccPrice, shop.espressoPrice, shop.americanPrice, shop.capPrice];
+  const validPrices = prices.filter(price => price !== null);
+  const sum = validPrices.reduce((a, b) => a + b, 0);
+  const avg = sum / validPrices.length;
+  return avg;
+}
+
+let minPrice = Infinity;
+let maxPrice = -Infinity;
 
 export const coffeeData = {
   info: [
@@ -378,6 +446,11 @@ export const coffeeData = {
       capPrice: 3.95,
       center: [37.8776196, -122.2733259]
     }
-  ]
+  ].map(shop => {
+    const avgPrice = calculateAveragePrice(shop);
+    minPrice = Math.min(minPrice, avgPrice);
+    maxPrice = Math.max(maxPrice, avgPrice);
+    return {...shop, avgPrice};
+  })
 };
 
