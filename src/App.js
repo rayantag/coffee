@@ -4,12 +4,65 @@ import React, { Component } from "react";
 import { FC, useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap, CircleMarker, Popup, Tooltip } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons'
+import { faStarHalf as solidStarHalf } from '@fortawesome/free-solid-svg-icons'
+import L from 'leaflet'
 
-function UpdateMap() {
-  const map = useMap();
-  map.invalidateSize();
-  return null;
+function StarRating({rating}) {
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars.push(<FontAwesomeIcon icon={solidStar} key={i} />);
+    } else if (rating >= i - 0.5) {
+      stars.push(<div className="star-icon" key={i}>
+                   <FontAwesomeIcon icon={regularStar}/>
+                   <FontAwesomeIcon icon={solidStarHalf}className="half-star" />
+                 </div>);
+    } else {
+      stars.push(<FontAwesomeIcon icon={regularStar} key={i}/>);
+    }
+  }
+
+  return (
+    <div>{stars}</div>
+  );
 }
+
+function GradientBar() {
+  return (
+    <div style={{ height: '20px', background: 'linear-gradient(to right, rgba(121, 64, 6, 0.25), rgba(121, 64, 6, 0.9))', margin: '10px 0' }}></div>
+  );
+}
+
+function Legend() {
+  return (
+    <div style={{ padding: '10px', backgroundColor: 'white', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+      <p style={{ margin: 0 }}>Price Level:</p>
+      <GradientBar />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p style={{ margin: 0 }}>Less expensive</p>
+        <p style={{ margin: 0 }}>More expensive</p>
+      </div>
+    </div>
+  );
+}
+
+const ResetZoomButton = () => {
+  const map = useMap();
+
+  const resetZoom = () => {
+    map.setView([37.8686181, -122.2611693], 16);
+  };
+
+  return (
+    <button onClick={resetZoom} className="reset-button">
+      Reset Map
+    </button>
+  );
+};
 
 const MapController = ({selectedShop}) => {
   const map = useMap();
@@ -41,16 +94,17 @@ const MapController = ({selectedShop}) => {
 };
 
 function MyMap() {
-  const [selectedShop, setSelectedShop] = useState(null); // useState hook
-  
+  const [selectedShop, setSelectedShop] = useState(null);
+
   return (
     <div style={{ display: "flex" }}>
-      <div className="sidebar"> 
-      { /*  how we're making the menu */ }
+      <div className="sidebar">
+        <Legend />
         {coffeeData.info.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
             <p>{shop.shopName}</p>
-            <p id="address">{shop.address}</p>
+            <StarRating rating={shop.stars} />
+            <p className="coffee-address">{shop.address}</p>
           </div>
         ))}
       </div>
@@ -58,40 +112,36 @@ function MyMap() {
         <MapContainer className="map" center={[37.8686181, -122.2611693]} zoom={15}>
           <MapController selectedShop={selectedShop} />
           <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png" />
-          {coffeeData.info.map((shop, index) => (
-            <CircleMarker key={index} center={[shop.center[0], shop.center[1]]} eventHandlers={{ click: () => { setSelectedShop(shop) } }}>
-              <Tooltip>{shop.shopName}</Tooltip>
-              {selectedShop === shop && (
-                <Tooltip permanent>
-                  <ul>
-                    <h id="shopName">{shop.shopName}</h>
-                    <li>{shop.region}</li>
-                    {(shop.dripPrice !== null) ? (
-                      <li>Drip Price: ${shop.dripPrice.toFixed(2)}</li>
-                    ) : <li>Drip Price: N/A</li>}
-                    {(shop.mochaPrice !== null) ? (
-                      <li>Mocha Price: ${shop.mochaPrice.toFixed(2)}</li>
-                    ) : <li>Mocha Price: N/A</li>}
-                    {(shop.lattePrice !== null) ? (
-                      <li>Latte Price: ${shop.lattePrice.toFixed(2)}</li>
-                    ) : <li>Latte Price: N/A</li>}
-                    {(shop.maccPrice !== null) ? (
-                      <li>Macchiato Price: ${shop.maccPrice.toFixed(2)}</li>
-                    ) : <li>Macchiato Price: N/A</li>}
-                    {(shop.espressoPrice !== null) ? (
-                      <li>Espresso Price: ${shop.espressoPrice.toFixed(2)}</li>
-                    ) : <li>Espresso Price: N/A</li>}
-                    {(shop.americanPrice !== null) ? (
-                      <li>Americano Price: ${shop.americanPrice.toFixed(2)}</li>
-                    ) : <li>Americano Price: N/A</li>}
-                    {(shop.capPrice !== null) ? (
-                      <li>Cappuccino Price: ${shop.capPrice.toFixed(2)}</li>
-                    ) : <li>Cappuccino Price: N/A</li>}
-                  </ul>
-                </Tooltip>
-              )}
-            </CircleMarker>
-          ))}
+          {coffeeData.info.map((shop, index) => {
+            const minOpacity = 0.15;
+            const maxOpacity = 0.9;
+            const t = (shop.avgPrice - minPrice) / (maxPrice - minPrice);
+            const opacity = minOpacity + t * (maxOpacity - minOpacity);
+
+            return (
+              <CircleMarker key={index} center={[shop.center[0], shop.center[1]]} eventHandlers={{ click: () => { setSelectedShop(shop) } }}
+              pathOptions={{ 
+                color: '#794006',
+                fillColor: '#794006', 
+                fillOpacity: opacity 
+              }}
+              >
+                <Tooltip className="customTooltip">{shop.shopName}</Tooltip>
+                {selectedShop === shop && (
+                  <Tooltip className="customTooltip" permanent>
+                      <h className="shopName">{shop.shopName}</h>
+                      {shop.dripPrice !== null && <li>Drip: ${shop.dripPrice.toFixed(2)}</li>}
+                      {shop.mochaPrice !== null && <li>Mocha: ${shop.mochaPrice.toFixed(2)}</li>}
+                      {shop.lattePrice !== null && <li>Latte: ${shop.lattePrice.toFixed(2)}</li>}
+                      {shop.espressoPrice !== null && <li>Espresso: ${shop.espressoPrice.toFixed(2)}</li>}
+                      {shop.americanPrice !== null && <li>Americano: ${shop.americanPrice.toFixed(2)}</li>}
+                      {shop.capPrice !== null && <li>Cappuccino: ${shop.capPrice.toFixed(2)}</li>}
+                  </Tooltip>
+                )}
+              </CircleMarker>
+            );
+          })}
+          <ResetZoomButton />
         </MapContainer>
       </div>
       
@@ -99,7 +149,19 @@ function MyMap() {
   );
 }
 
+
 export default MyMap;
+
+function calculateAveragePrice(shop) {
+  const prices = [shop.dripPrice, shop.mochaPrice, shop.lattePrice, shop.maccPrice, shop.espressoPrice, shop.americanPrice, shop.capPrice];
+  const validPrices = prices.filter(price => price !== null);
+  const sum = validPrices.reduce((a, b) => a + b, 0);
+  const avg = sum / validPrices.length;
+  return avg;
+}
+
+let minPrice = Infinity;
+let maxPrice = -Infinity;
 
 export const coffeeData = {
   info: [
@@ -433,7 +495,12 @@ export const coffeeData = {
       averagePrice: 3.65,
       center: [37.8776196, -122.2733259]
     }
-  ]
+  ].map(shop => {
+    const avgPrice = calculateAveragePrice(shop);
+    minPrice = Math.min(minPrice, avgPrice);
+    maxPrice = Math.max(maxPrice, avgPrice);
+    return {...shop, avgPrice};
+  })
 };
 
 export const averageData = [

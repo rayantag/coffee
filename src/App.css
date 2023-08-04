@@ -8,8 +8,20 @@
   height: 100vh;
 }
 
+div.customTooltip {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 255, 0.1);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
 li {
   list-style-type: none;
+  font-weight: normal;
+  text-align: left;
 }
 
 .sidebar {
@@ -20,15 +32,33 @@ li {
   padding: 20px;
 }
 
+.reset-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgb(255, 255, 255);
+  border: 3px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
 .coffee-shop {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-h#shopName {
+.coffee-shop:hover {
+  color: #794006
+}
+
+.shopName {
   font-weight: bold;
 }
 
@@ -74,3 +104,19 @@ p#address {
     transform: rotate(360deg);
   }
 }
+
+.star-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.half-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.coffee-address {
+  font-size: 75%;
+}
+
