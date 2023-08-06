@@ -54,7 +54,7 @@ const ResetZoomButton = () => {
   const map = useMap();
 
   const resetZoom = () => {
-    map.setView([37.8686181, -122.2611693], 16);
+    map.setView([averageLatitude, averageLongitude], 16);
   };
 
   return (
@@ -76,7 +76,7 @@ const MapController = ({selectedShop}) => {
   };
 
   const flyToCenter = () => {
-    map.flyTo([37.8686181, -122.2611693], 16, {
+    map.flyTo([averageLatitude, averageLongitude], 16, {
       animate: true,
       duration: flyToDuration,
     });
@@ -178,7 +178,7 @@ export const coffeeData = {
       americanPrice: 3.25,
       capPrice: 4.5,
       averagePrice: 3.59,
-      center: [37.8686181, -122.2611693]
+      center: [37.86886795840184, -122.25861586074959]
     },
     {
       shopName: "Victory Point Cafe",
@@ -193,7 +193,7 @@ export const coffeeData = {
       americanPrice: 3.75,
       capPrice: 4.25,
       averagePrice: 4.04,
-      center: [37.8751784, -122.2710362]
+      center: [37.87532661035478, -122.26841838773299]
     },
     {
       shopName: "Berkeley Espresso",
@@ -208,7 +208,8 @@ export const coffeeData = {
       americanPrice: 3.85,
       capPrice: 4.45,
       averagePrice: 4.09,
-      center: [37.8737312, -122.2713947]
+      center: [37.873904820217525, -122.26881980307725]
+      
     },
     {
       shopName: "MY Coffee Roastery",
@@ -223,7 +224,7 @@ export const coffeeData = {
       americanPrice: 4.0,
       capPrice: 4.5,
       averagePrice: 4.5,
-      center: [37.870716, -122.2780024]
+      center: [37.870898196797484, -122.27314223191333]
     },
     {
       shopName: "Yali's Cafe",
@@ -238,7 +239,7 @@ export const coffeeData = {
       americanPrice: null,
       capPrice: 3.95,
       averagePrice: 3.78,
-      center: [37.8734824, -122.2689829]
+      center: [37.873622144878446, -122.26638654540514]
     },
     {
       shopName: "MIND Coffee",
@@ -253,7 +254,7 @@ export const coffeeData = {
       americanPrice: 4.5,
       capPrice: 4.75,
       averagePrice: 4.46,
-      center: [37.8757876, -122.2631173]
+      center: [37.87596121525255, -122.26056386074929]
     },
     {
       shopName: "Blue Bottle Coffee",
@@ -268,7 +269,7 @@ export const coffeeData = {
       americanPrice: null,
       capPrice: 5.75,
       averagePrice: 5.55,
-      center: [37.8720931, -122.2702082]
+      center: [37.87224124444384, -122.26761186312159]
     },
     {
       shopName: "K's Coffee House",
@@ -283,7 +284,7 @@ export const coffeeData = {
       americanPrice: 3.75,
       capPrice: 4.5,
       averagePrice: 4.1,
-      center: [37.8699343, -122.2750436]
+      center: [37.87008262120727, -122.2702048895855]
     },
     {
       shopName: "Coffee Hut",
@@ -298,7 +299,7 @@ export const coffeeData = {
       americanPrice: 3.75,
       capPrice: 4.25,
       averagePrice: 4.0,
-      center: [37.8698659, -122.2709325]
+      center: [37.87004799894777, -122.26836833191352]
     },
     {
       shopName: "One Plus",
@@ -313,7 +314,7 @@ export const coffeeData = {
       americanPrice: 4.25,
       capPrice: 4.75,
       averagePrice: 4.96,
-      center: [37.8698547, -122.2690049]
+      center: [37.86997751315889, -122.26639781656942]
     },
     {
       shopName: "Abe's Cafe",
@@ -328,7 +329,7 @@ export const coffeeData = {
       americanPrice: 3.0,
       capPrice: 3.75,
       averagePrice: 3.54,
-      center: [37.8755258, -122.2629958]
+      center: [37.875665540884434, -122.260367258897]
     },
     {
       shopName: "Northside Cafe",
@@ -343,7 +344,7 @@ export const coffeeData = {
       americanPrice: null,
       capPrice: 4.75,
       averagePrice: 4.02,
-      center: [37.8752072, -122.2628749]
+      center: [37.875363879082414, -122.26034291842132]
     },
     {
       shopName: "V&A Cafe",
@@ -358,7 +359,7 @@ export const coffeeData = {
       americanPrice: 3.0,
       capPrice: 3.0,
       averagePrice: 3.04,
-      center: [37.8756668, -122.2618554]
+      center: [37.87550981634244, -122.25901613191327]
     },
     {
       shopName: "Yali's Qualcomm Cafe",
@@ -373,7 +374,7 @@ export const coffeeData = {
       americanPrice: 3.0,
       capPrice: 3.95,
       averagePrice: 3.47,
-      center: [37.8747965, -122.2631813]
+      center: [37.87490892437576, -122.25876253191329]
     },
     {
       shopName: "Cabanas Cafe",
@@ -388,7 +389,7 @@ export const coffeeData = {
       americanPrice: 3.5,
       capPrice: 3.99,
       averagePrice: 3.87,
-      center: [37.8752072, -122.2628749]
+      center: [37.87537234786859, -122.26031073191321]
     },
     {
       shopName: "Mind Coffee",
@@ -403,7 +404,7 @@ export const coffeeData = {
       americanPrice: 4.5,
       capPrice: 4.75,
       averagePrice: 4.46,
-      center: [37.8757833, -122.2654133]
+      center: [37.875952746534104, -122.26056386074929]
     },
     {
       shopName: "1951 Coffee Company",
@@ -418,7 +419,7 @@ export const coffeeData = {
       americanPrice: 4.0,
       capPrice: 5.0,
       averagePrice: 4.5,
-      center: [37.8666475, -122.2625535]
+      center: [37.866838076854464, -122.25992495889744]
     },
     {
       shopName: "Romeo's Coffee",
@@ -433,7 +434,7 @@ export const coffeeData = {
       americanPrice: 3.5,
       capPrice: 4.0,
       averagePrice: 3.7,
-      center: [37.8653383, -122.2608961]
+      center: [37.86551334047612, -122.25838267609379]
     },
     {
       shopName: "The Coffee Lab",
@@ -448,7 +449,7 @@ export const coffeeData = {
       americanPrice: 4.0,
       capPrice: 5.0,
       averagePrice: 4.43,
-      center: [37.872789, -122.2583994]
+      center: [37.87249682257104, -122.2556421128647]
     },
     {
       shopName: "Cafe Think",
@@ -463,7 +464,7 @@ export const coffeeData = {
       americanPrice: 2.85,
       capPrice: null,
       averagePrice: 2.5,
-      center: [37.872328, -122.2567669]
+      center: [37.872484685372015, -122.25419200307732]
     },
     {
       shopName: "edmonds cafe",
@@ -478,7 +479,7 @@ export const coffeeData = {
       americanPrice: 3.0,
       capPrice: 3.5,
       averagePrice: 3.57,
-      center: [37.8696601, -122.2540053]
+      center: [37.86982595229813, -122.25200867424137]
     },
     {
       shopName: "Guerilla Cafe",
@@ -493,7 +494,7 @@ export const coffeeData = {
       americanPrice: 3.0,
       capPrice: 3.95,
       averagePrice: 3.65,
-      center: [37.8776196, -122.2733259]
+      center: [37.87798489385365, -122.2691856300609]
     }
   ].map(shop => {
     const avgPrice = calculateAveragePrice(shop);
@@ -502,6 +503,11 @@ export const coffeeData = {
     return {...shop, avgPrice};
   })
 };
+
+const latitudes = coffeeData.info.map(shop => shop.center[0]);
+const longitudes = coffeeData.info.map(shop => shop.center[1]);
+const averageLatitude = latitudes.reduce((sum, lat) => sum + lat, 0) / latitudes.length;
+const averageLongitude = longitudes.reduce((sum, lon) => sum + lon, 0) / longitudes.length;
 
 export const averageData = [
   {
