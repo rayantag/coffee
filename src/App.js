@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { Component } from "react";
-import { FC, useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMap, CircleMarker, Popup, Tooltip } from 'react-leaflet'
+import React from "react";
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, useMap, CircleMarker, Tooltip } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons'
 import { faStarHalf as solidStarHalf } from '@fortawesome/free-solid-svg-icons'
-import L from 'leaflet'
 
 function StarRating({rating}) {
   const stars = [];
@@ -33,18 +31,18 @@ function StarRating({rating}) {
 
 function GradientBar() {
   return (
-    <div style={{ height: '20px', background: 'linear-gradient(to right, rgba(121, 64, 6, 0.25), rgba(121, 64, 6, 0.9))', margin: '10px 0' }}></div>
+    <div style={{ borderRadius: '20px', height: '20px', background: 'linear-gradient(to right, rgba(121, 64, 6, 0.25), rgba(121, 64, 6, 0.9))', margin: '10px 0'}}></div>
   );
 }
 
 function Legend() {
   return (
     <div style={{ padding: '10px', backgroundColor: 'white', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-      <p style={{ margin: 0 }}>Price Level:</p>
+      <p className="pLevels" style={{ margin: 0 }}>Price Level:</p>
       <GradientBar />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p style={{ margin: 0 }}>Less expensive</p>
-        <p style={{ margin: 0 }}>More expensive</p>
+        <p className="pLevels" style={{ margin: 0 }}>Less expensive</p>
+        <p className="pLevels" style={{ margin: 0 }}>More expensive</p>
       </div>
     </div>
   );
@@ -88,7 +86,7 @@ const MapController = ({selectedShop}) => {
     } else {
       flyToCenter();
     }
-  }, [selectedShop])
+  })
 
   return null;
 };
@@ -96,13 +94,15 @@ const MapController = ({selectedShop}) => {
 function MyMap() {
   const [selectedShop, setSelectedShop] = useState(null);
 
+  const sortedShops = [...coffeeData.info].sort((a, b) => b.stars - a.stars);
+
   return (
     <div style={{ display: "flex" }}>
       <div className="sidebar">
         <Legend />
-        {coffeeData.info.map((shop, index) => (
+        {sortedShops.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
-            <p>{shop.shopName}</p>
+            <p className="shopNamez">{shop.shopName}</p>
             <StarRating rating={shop.stars} />
             <p className="coffee-address">{shop.address}</p>
           </div>
