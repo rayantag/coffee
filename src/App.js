@@ -100,7 +100,9 @@ function MyMap() {
     <div style={{ display: "flex" }}>
       <div className="sidebar">
         <Legend />
-        {coffeeData.info.map((shop, index) => (
+        {coffeeData.info
+        .sort((a, b) => b.stars - a.stars)
+        .map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
             <p>{shop.shopName}</p>
             <StarRating rating={shop.stars} />
