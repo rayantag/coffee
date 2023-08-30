@@ -1,7 +1,8 @@
 import './App.css';
 import React from "react";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMap, CircleMarker, Tooltip } from 'react-leaflet'
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Legend, Tooltip as RechartsTooltip } from "recharts";
+import { MapContainer, TileLayer, useMap, CircleMarker, Tooltip as LeafletTooltip} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
@@ -35,7 +36,7 @@ function GradientBar() {
   );
 }
 
-function Legend() {
+function GradientLegend() {
   return (
     <div style={{ padding: '10px', backgroundColor: 'white', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
       <p className="pLevels" style={{ margin: 0 }}>Price Level:</p>
@@ -45,6 +46,27 @@ function Legend() {
         <p className="pLevels" style={{ margin: 0 }}>More expensive</p>
       </div>
     </div>
+  );
+}
+
+function HorizontalBarChart({ coffeeData }) {
+  return (
+    <ResponsiveContainer height={400}>
+    <BarChart
+      width={1600}
+      height={800}
+      data={coffeeData}
+      layout="vertical" // this makes the bar chart horizontal 
+      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis />
+      <YAxis dataKey="shopName" />
+      <RechartsTooltip />
+      <Legend />
+      <Bar dataKey="averagePrice" fill="#A04006" name="Average Price" />
+    </BarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -99,7 +121,7 @@ function MyMap() {
   return (
     <div style={{ display: "flex" }}>
       <div className="sidebar">
-        <Legend />
+        <GradientLegend />
         {sortedShops.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
             <p className="shopNamez">{shop.shopName}</p>
@@ -126,9 +148,9 @@ function MyMap() {
                 fillOpacity: opacity 
               }}
               >
-                <Tooltip className="customTooltip">{shop.shopName}</Tooltip>
+                <LeafletTooltip className="customTooltip">{shop.shopName}</LeafletTooltip>
                 {selectedShop === shop && (
-                  <Tooltip className="customTooltip" permanent>
+                  <LeafletTooltip className="customTooltip" permanent>
                       <h className="shopName">{shop.shopName}</h>
                       {shop.dripPrice !== null && <li>Drip: ${shop.dripPrice.toFixed(2)}</li>}
                       {shop.mochaPrice !== null && <li>Mocha: ${shop.mochaPrice.toFixed(2)}</li>}
@@ -136,7 +158,7 @@ function MyMap() {
                       {shop.espressoPrice !== null && <li>Espresso: ${shop.espressoPrice.toFixed(2)}</li>}
                       {shop.americanPrice !== null && <li>Americano: ${shop.americanPrice.toFixed(2)}</li>}
                       {shop.capPrice !== null && <li>Cappuccino: ${shop.capPrice.toFixed(2)}</li>}
-                  </Tooltip>
+                  </LeafletTooltip>
                 )}
               </CircleMarker>
             );
@@ -144,7 +166,9 @@ function MyMap() {
           <ResetZoomButton />
         </MapContainer>
       </div>
-      
+      {/* <div>
+      <HorizontalBarChart coffeeShops={coffeeData.info} />
+      </div> */}
     </div>
   );
 }
