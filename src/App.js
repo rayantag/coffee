@@ -170,7 +170,7 @@ function MyMap() {
       <HorizontalBarChart coffeeShops={coffeeData.info} />
       </div> */}
 
-<div style={{
+<div style={{ 
         display: "block",
         justifyContent: "center",
         alignItems: "center",
