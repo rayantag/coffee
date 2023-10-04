@@ -49,26 +49,26 @@ function GradientLegend() {
   );
 }
 
-function HorizontalBarChart({ coffeeData }) {
-  return (
-    <ResponsiveContainer height={400}>
-    <BarChart
-      width={1600}
-      height={800}
-      data={coffeeData}
-      layout="vertical" // this makes the bar chart horizontal 
-      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis />
-      <YAxis dataKey="shopName" />
-      <RechartsTooltip />
-      <Legend />
-      <Bar dataKey="averagePrice" fill="#A04006" name="Average Price" />
-    </BarChart>
-    </ResponsiveContainer>
-  );
-}
+// function HorizontalBarChart({ coffeeData }) {
+//   return (
+//     <ResponsiveContainer height={400}>
+//     <BarChart
+//       width={1600}
+//       height={800}
+//       data={coffeeData}
+//       layout="vertical" // this makes the bar chart horizontal 
+//       margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+//     >
+//       <CartesianGrid strokeDasharray="3 3" />
+//       <XAxis />
+//       <YAxis dataKey="shopName" />
+//       <RechartsTooltip />
+//       <Legend />
+//       <Bar dataKey="averagePrice" fill="#A04006" name="Average Price" />
+//     </BarChart>
+//     </ResponsiveContainer>
+//   );
+// }
 
 const ResetZoomButton = () => {
   const map = useMap();
@@ -169,6 +169,39 @@ function MyMap() {
       {/* <div>
       <HorizontalBarChart coffeeShops={coffeeData.info} />
       </div> */}
+
+<div style={{
+        display: "block",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        left: "20px"
+      }}>
+    <div>
+      <h4>Average Coffee Price</h4>
+    </div>
+
+    <ResponsiveContainer height={400}>
+      <BarChart
+        width={500}
+        height={300}
+        data={sortedData}
+        layout="vertical"
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis type="number" />
+        <YAxis dataKey="shopName" type="category" tick={{ fontSize: 10 }} />
+        <RechartsTooltip />
+        <Bar dataKey="averagePrice" fill="#8884d8" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
     </div>
   );
 }
@@ -186,6 +219,8 @@ function calculateAveragePrice(shop) {
 
 let minPrice = Infinity;
 let maxPrice = -Infinity;
+
+
 
 export const coffeeData = {
   info: [
@@ -744,7 +779,22 @@ export const coffeeData = {
       capPrice: 5.00,
       averagePrice: 4.50,
       center: [37.8683124, -122.2607224]
-    }
+    },
+    {
+      shopName: "Mudraker's Cafe",
+      stars: 4.1,
+      address: "2801 Bancroft Way",
+      region: "Southside",
+      dripPrice: 2.75,
+      mochaPrice: 4.60,
+      lattePrice: 4.35,
+      maccPrice: 4.00,
+      espressoPrice: 3.00,
+      americanPrice: 4.00,
+      capPrice: 4.00,
+      averagePrice: 3.81,
+      center: [37.8596604, -122.2598045]
+    },
   ].map(shop => {
     const avgPrice = calculateAveragePrice(shop);
     minPrice = Math.min(minPrice, avgPrice);
@@ -788,3 +838,7 @@ export const averageData = [
     averagePrice: 4.34
   }
 ];
+
+const sortedData = coffeeData.info.sort(
+  (a, b) => b.averagePrice - a.averagePrice
+);
