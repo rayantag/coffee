@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Legend, Tooltip as RechartsTooltip } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip as RechartsTooltip } from "recharts";
 import { MapContainer, TileLayer, useMap, CircleMarker, Tooltip as LeafletTooltip} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -48,27 +48,6 @@ function GradientLegend() {
     </div>
   );
 }
-
-// function HorizontalBarChart({ coffeeData }) {
-//   return (
-//     <ResponsiveContainer height={400}>
-//     <BarChart
-//       width={1600}
-//       height={800}
-//       data={coffeeData}
-//       layout="vertical" // this makes the bar chart horizontal 
-//       margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-//     >
-//       <CartesianGrid strokeDasharray="3 3" />
-//       <XAxis />
-//       <YAxis dataKey="shopName" />
-//       <RechartsTooltip />
-//       <Legend />
-//       <Bar dataKey="averagePrice" fill="#A04006" name="Average Price" />
-//     </BarChart>
-//     </ResponsiveContainer>
-//   );
-// }
 
 const ResetZoomButton = () => {
   const map = useMap();
@@ -119,8 +98,13 @@ function MyMap() {
   const sortedShops = [...coffeeData.info].sort((a, b) => b.stars - a.stars);
 
   return (
-    <div style={{ display: "flex" }}>
-      <div className="sidebar">
+    <div>
+      <div style={{ 
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between"
+      }}>
+      <div className="sidebar"> 
         <GradientLegend />
         {sortedShops.map((shop, index) => (
           <div key={index} className="coffee-shop" onClick={() => setSelectedShop(shop)}>
@@ -166,39 +150,35 @@ function MyMap() {
           <ResetZoomButton />
         </MapContainer>
       </div>
-      {/* <div>
-      <HorizontalBarChart coffeeShops={coffeeData.info} />
-      </div> */}
+      </div>
 
-<div style={{ 
+<div style={{
         display: "block",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
+        marginTop: "auto",
         left: "20px"
       }}>
-    <div>
+    
       <h4>Average Coffee Price</h4>
-    </div>
+    
 
-    <ResponsiveContainer height={400}>
+    <ResponsiveContainer height={1000}>
       <BarChart
         width={500}
-        height={300}
+        height={1000}
         data={sortedData}
         layout="vertical"
         margin={{
           top: 5,
           right: 30,
-          left: 20,
+          left: 50,
           bottom: 5
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis type="number" />
-        <YAxis dataKey="shopName" type="category" tick={{ fontSize: 10 }} />
+        <YAxis dataKey="shopName" type="category" tick={{ fontSize: 8 }} />
         <RechartsTooltip />
-        <Bar dataKey="averagePrice" fill="#8884d8" />
+        <Bar dataKey="averagePrice" name="Average Price" fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>
   </div>
@@ -524,21 +504,6 @@ export const coffeeData = {
       capPrice: 3.40,
       averagePrice: 3.37,
       center: [37.872752, -122.260394]
-    },
-    {
-      shopName: "Mind Coffee",
-      stars: 4.8,
-      address: "1816 Euclid Ave",
-      region: "Northside",
-      dripPrice: 3.75,
-      mochaPrice: 5.75,
-      lattePrice: 5.00,
-      maccPrice: 4.00,
-      espressoPrice: 3.50,
-      americanPrice: 4.50,
-      capPrice: 4.75,
-      averagePrice: 4.46,
-      center: [37.875952746534104, -122.26056386074929]
     },
     {
       shopName: "Goldie's",
