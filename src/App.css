@@ -39,6 +39,7 @@ li {
   overflow-y: auto;
   border-right: 1px solid #ccc;
   padding: 20px;
+  background-color: #fff7e6;
 }
 
 .reset-button {
