@@ -126,9 +126,9 @@ function CoffeeMap() {
               <CircleMarker key={index} center={[shop.center[0], shop.center[1]]} eventHandlers={{ click: () => { 
                 setSelectedShop(shop) } }}
               pathOptions={{ 
-                color: '#794006',
-                fillColor: '#794006', 
-                fillOpacity: opacity 
+                color: '#000',
+                fillColor: '#7e453a', 
+                fillOpacity: opacity
               }}
               >
                 <Tooltip className="customTooltip">{shop.shopName}</Tooltip>

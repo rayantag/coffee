@@ -32,7 +32,7 @@ function CoffeeBarChart() {
           <XAxis type="number" label={{ value: "Average Price ($)", position: "insideBottom", offset: -10 }}/>
           <YAxis dataKey="shopName" type="category" tick={{ fontSize: 8 }} label={{ value: "Coffee Shop", position: "insideLeft", angle: -90, offset: -20 }} />
           <Tooltip formatter={(value) => `$${value.toFixed(2)}`}/> 
-          <Bar dataKey="averagePrice" name="Average Price" fill="#8884d8" />
+          <Bar dataKey="averagePrice" name="Average Price" fill="#a07fac" />
         </BarChart>
       </ResponsiveContainer>
       </div>

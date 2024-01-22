@@ -16,21 +16,6 @@ export const coffeeData = {
         center: [37.86886795840184, -122.25861586074959]
       },
       {
-        shopName: "Peet's Coffee",
-        stars: 4.2,
-        address: "2255 Shattuck Ave.",
-        region: "Downtown",
-        dripPrice: 3.30,
-        mochaPrice: 5.55,
-        lattePrice: 5.10,
-        maccPrice: 5.80,
-        espressoPrice: 3.60,
-        americanPrice: 4.60,
-        capPrice: 4.95,
-        averagePrice: 4.70,
-        center: [37.86849913735447, -122.26747120341723]
-      },
-      {
         shopName: "Victory Point Cafe",
         stars: 4.7,
         address: "1797 Shattuck Ave. Ste A",
@@ -58,12 +43,12 @@ export const coffeeData = {
         americanPrice: 2.95,
         capPrice: 4.00,
         averagePrice: 3.39,
-        center: [37.873904820217525, -122.26881980307725]
+        center: [37.8737312,-122.2714001]
         
       },
       {
         shopName: "MY Coffee Roastery",
-        stars: 4.5,
+        stars: 4.8,
         address: "2080 Martin Luther King Jr Way",
         region: "Downtown",
         dripPrice: null,
@@ -79,13 +64,13 @@ export const coffeeData = {
       {
         shopName: "Yali's Cafe",
         stars: 4.2,
-        address: "1920 Oxford Street",
+        address: "1920 Oxford St.",
         region: "Northside",
         dripPrice: 2.85,
         mochaPrice: 4.75,
         lattePrice: 4.0,
-        maccPrice: 3.85,
-        espressoPrice: 3.25,
+        maccPrice: 3.25,
+        espressoPrice: 2.50,
         americanPrice: 3.15,
         capPrice: 3.35,
         averagePrice: 3.41,
@@ -123,7 +108,7 @@ export const coffeeData = {
       },
       {
         shopName: "K's Coffee House",
-        stars: 4.5,
+        stars: 4.4,
         address: "2002 Center St.",
         region: "Downtown",
         dripPrice: 3,
@@ -165,6 +150,21 @@ export const coffeeData = {
         capPrice: 4.75,
         averagePrice: 4.96,
         center: [37.86997751315889, -122.26639781656942]
+      },
+      {
+        shopName: "Peet's Coffee",
+        stars: 4.2,
+        address: "2255 Shattuck Ave.",
+        region: "Downtown",
+        dripPrice: 3.30,
+        mochaPrice: 5.55,
+        lattePrice: 5.10,
+        maccPrice: 5.80,
+        espressoPrice: 3.60,
+        americanPrice: 4.60,
+        capPrice: 4.95,
+        averagePrice: 4.70,
+        center: [37.86849913735447, -122.26747120341723]
       },
       {
         shopName: "Sasha Coffee",
@@ -257,21 +257,6 @@ export const coffeeData = {
         center: [37.87537234786859, -122.26031073191321]
       },
       {
-        shopName: "The Golden Bear Cafe",
-        stars: 3.7,
-        address: "2 Sather Rd.",
-        region: "Campus",
-        dripPrice: 3.45,
-        mochaPrice: 5.70,
-        lattePrice: 5.25,
-        maccPrice: 5.95,
-        espressoPrice: 3.75,
-        americanPrice: 4.75,
-        capPrice: 5.10,
-        averagePrice: 4.85,
-        center: [37.87002989899368, -122.25965583141792]
-      },
-      {
         shopName: "Brown's",
         stars: 3.8,
         address: "2255 Hearst Ave.",
@@ -303,7 +288,7 @@ export const coffeeData = {
       },
       {
         shopName: "Goldie's Coffee",
-        stars: 4.7,
+        stars: 4.5,
         address: "2495 Bancroft Way, 2nd Floor",
         region: "Campus",
         dripPrice: 2.70,
@@ -320,7 +305,7 @@ export const coffeeData = {
         shopName: "Sodoi Coffee Tasting House",
         stars: 4.6,
         address: "2438 Durant Ave.",
-        region: "Northside",
+        region: "Southside",
         dripPrice: 4.70,
         mochaPrice: 5.20,
         lattePrice: 4.70,
@@ -339,11 +324,11 @@ export const coffeeData = {
         dripPrice: 3.00,
         mochaPrice: 5.75,
         lattePrice: 5.25,
-        maccPrice: 4.50,
+        maccPrice: 4.75,
         espressoPrice: 3.75,
         americanPrice: 4.00,
         capPrice: 5.00,
-        averagePrice: 4.46,
+        averagePrice: 4.50,
         center: [37.866838076854464, -122.25992495889744]
       },
       {
@@ -409,8 +394,8 @@ export const coffeeData = {
       {
         shopName: "Starbucks",
         stars: 3.7,
-        address: "1444 Shattuck Pl.",
-        region: "Downtown",
+        address: "1444 Shattuck Place",
+        region: "Northside",
         dripPrice: 3.45,
         mochaPrice: 5.65,
         lattePrice: 4.95,
@@ -422,7 +407,22 @@ export const coffeeData = {
         center: [37.8809398669007, -122.27009791792625]
       },
       {
-        shopName: "Peet's Coffee",
+        shopName: "Peet's Coffee at GBC",
+        stars: 3.7,
+        address: "2 Sather Rd.",
+        region: "Campus",
+        dripPrice: 3.45,
+        mochaPrice: 5.70,
+        lattePrice: 5.25,
+        maccPrice: 5.95,
+        espressoPrice: 3.75,
+        americanPrice: 4.75,
+        capPrice: 5.10,
+        averagePrice: 4.85,
+        center: [37.87002989899368, -122.25965583141792]
+      },
+      {
+        shopName: "Peet's Coffee at The Den",
         stars: 3.5,
         address: "2415 Bowditch St.",
         region: "Southside",
@@ -467,10 +467,10 @@ export const coffeeData = {
         center: [37.869289953345515, -122.25481608723673]
       },
       {
-        shopName: "Edmonds Cafe",
+        shopName: "edmonds cafe",
         stars: 4.0,
-        address: "2299 Piedmont Ave",
-        region: "Northside",
+        address: "2299 Piedmont Ave.",
+        region: "Southside",
         dripPrice: 2.50,
         mochaPrice: 4.75,
         lattePrice: 4.50,
@@ -480,6 +480,21 @@ export const coffeeData = {
         capPrice: 3.75,
         averagePrice: 3.79,
         center: [37.86982595229813, -122.25200867424137]
+      },
+      {
+        shopName: "Guerilla Cafe",
+        stars: 4.5,
+        address: "1620 Shattuck Ave.",
+        region: "Northside",
+        dripPrice: 3.00,
+        mochaPrice: 6.00,
+        lattePrice: 5.50,
+        maccPrice: 4.25,
+        espressoPrice: 3.75,
+        americanPrice: 4.00,
+        capPrice: 4.95,
+        averagePrice: 4.49,
+        center: [37.87798489385365, -122.2691856300609]
       },
       {
         shopName: "Kiklo Cafe",
@@ -558,7 +573,7 @@ export const coffeeData = {
       },
       {
         shopName: "Delah Coffee",
-        stars: 4.8,
+        stars: 4.3,
         address: "1807 Euclid Ave.",
         region: "Northside",
         dripPrice: 4.45,
@@ -633,7 +648,7 @@ export const coffeeData = {
       },
       {
         shopName: "Souvenir Coffee Co.",
-        stars: 3.8,
+        stars: 3.7,
         address: "2701 College Ave.",
         region: "Southside",
         dripPrice: 3.75,
@@ -665,7 +680,7 @@ export const coffeeData = {
         shopName: "Café Zeb",
         stars: 4.1,
         address: "2745 Bancroft Way",
-        region: "Southside",
+        region: "Campus",
         dripPrice: 2.70,
         mochaPrice: 4.20,
         lattePrice: 4.20,
@@ -675,21 +690,6 @@ export const coffeeData = {
         capPrice: 4.20,
         averagePrice: 3.57,
         center: [37.86973360523841, -122.25315418909034]
-      },
-      {
-        shopName: "Guerilla Cafe",
-        stars: 4.5,
-        address: "1620 Shattuck Ave",
-        region: "Northside",
-        dripPrice: 3.00,
-        mochaPrice: 6.00,
-        lattePrice: 5.50,
-        maccPrice: 4.25,
-        espressoPrice: 3.75,
-        americanPrice: 4.00,
-        capPrice: 4.95,
-        averagePrice: 4.49,
-        center: [37.87798489385365, -122.2691856300609]
       },
     ]
   };
